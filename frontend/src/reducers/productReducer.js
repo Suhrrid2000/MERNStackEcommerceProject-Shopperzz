@@ -31,6 +31,9 @@ import {
   DELETE_REVIEW_SUCCESS,
   DELETE_REVIEW_FAIL,
   DELETE_REVIEW_RESET,
+  SUGGESTED_PRODUCT_REQUEST,
+  SUGGESTED_PRODUCT_SUCCESS,
+  SUGGESTED_PRODUCT_FAIL,
   CLEAR_ERRORS,
 } from "../constants/productConstants";
 
@@ -72,6 +75,36 @@ export const productsReducer = (state = { products: [] }, action) => {
       return state;
   }
 };
+
+export const suggestedProductsReducer = (state = { suggestedproducts: [] }, action) => {
+  switch (action.type) {
+    case SUGGESTED_PRODUCT_REQUEST:
+      return {
+        loading: true,
+        suggestedproducts: [],
+      };
+    case SUGGESTED_PRODUCT_SUCCESS:
+      return {
+        loading: false,
+        suggestedproducts: action.payload.suggestedproducts, 
+      };
+    case SUGGESTED_PRODUCT_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+      };
+
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
+
+
 
 export const newProductReducer = (state = { product: {} }, action) => {
   switch (action.type) {

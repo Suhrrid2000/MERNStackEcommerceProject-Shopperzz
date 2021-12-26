@@ -28,6 +28,9 @@ import {
   DELETE_REVIEW_REQUEST,
   DELETE_REVIEW_SUCCESS,
   DELETE_REVIEW_FAIL,
+  SUGGESTED_PRODUCT_REQUEST,
+  SUGGESTED_PRODUCT_SUCCESS,
+  SUGGESTED_PRODUCT_FAIL,
   CLEAR_ERRORS,
 } from "../constants/productConstants";
 
@@ -58,6 +61,30 @@ export const getProduct =
     }
   };
 
+
+// Get suggested Products
+export const getSuggestedProduct = (category) => async (dispatch) => {
+    try {
+      dispatch({ type: SUGGESTED_PRODUCT_REQUEST });
+
+      const config = {
+        headers: { "Content-Type": "application/json" },
+      };
+
+      const { data } = await axios.post("/api/v1/suggestion", { category: category }, config);
+
+      dispatch({
+        type: SUGGESTED_PRODUCT_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: SUGGESTED_PRODUCT_FAIL,
+        payload: error.response.data.message,
+      });
+    }
+  };
+
 // Get All Products For Admin
 export const getAdminProduct = () => async (dispatch) => {
   try {
@@ -76,6 +103,7 @@ export const getAdminProduct = () => async (dispatch) => {
     });
   }
 };
+
 
 // Create Product
 export const createProduct = (productData) => async (dispatch) => {

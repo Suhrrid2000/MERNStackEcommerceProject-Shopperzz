@@ -104,7 +104,7 @@ const ProcessOrder = ({ history, match }) => {
                         {order.paymentInfo &&
                         order.paymentInfo.status === "succeeded"
                           ? "PAID"
-                          : "NOT PAID"}
+                          : (order.orderStatus === "Delivered" ? "PAID" : "NOT PAID (Cash On Delivery)")}
                       </p>
                     </div>
 

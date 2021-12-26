@@ -6,6 +6,8 @@ import { useAlert } from "react-alert";
 import { Button } from "@material-ui/core";
 import MetaData from "../layout/MetaData";
 import AccountTreeIcon from "@material-ui/icons/AccountTree";
+import LocalOfferIcon from '@material-ui/icons/LocalOffer';
+import PaymentIcon from '@material-ui/icons/Payment';
 import DescriptionIcon from "@material-ui/icons/Description";
 import StorageIcon from "@material-ui/icons/Storage";
 import SpellcheckIcon from "@material-ui/icons/Spellcheck";
@@ -21,6 +23,8 @@ const NewProduct = ({ history }) => {
 
   const [name, setName] = useState("");
   const [price, setPrice] = useState(0);
+  const [discount, setDiscount] = useState(0);
+  const [cod, setCod] = useState(false);
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
   const [Stock, setStock] = useState(0);
@@ -35,7 +39,20 @@ const NewProduct = ({ history }) => {
     "Attire",
     "Camera",
     "SmartPhones",
+    "Furniture",
+    "Headphones/Earphones",
+    "Electronic Appliances",
+    "Grocery",
+    "Sports",
+    "Beauty",
+    "Accessories",
+    "Others"
   ];
+
+  const codChoices = [
+    "YES", 
+    "NO"
+  ]
 
   useEffect(() => {
     if (error) {
@@ -57,6 +74,8 @@ const NewProduct = ({ history }) => {
 
     myForm.set("name", name);
     myForm.set("price", price);
+    myForm.set("discount", discount);
+    myForm.set("cod", cod);
     myForm.set("description", description);
     myForm.set("category", category);
     myForm.set("Stock", Stock);
@@ -117,6 +136,16 @@ const NewProduct = ({ history }) => {
                 placeholder="Price"
                 required
                 onChange={(e) => setPrice(e.target.value)}
+                value={price}
+              />
+            </div>
+            <div>
+              <LocalOfferIcon />
+              <input
+                type="number"
+                placeholder="Discount %"
+                required
+                onChange={(e) => setDiscount(e.target.value)}
               />
             </div>
 
@@ -153,7 +182,18 @@ const NewProduct = ({ history }) => {
                 onChange={(e) => setStock(e.target.value)}
               />
             </div>
-
+            <div>
+              <PaymentIcon />
+              <select onChange={(e) => setCod(e.target.value === "YES" ? true : false)}>
+                <option value="">Cash on Delivery available</option>
+                {codChoices.map((c) => (
+                  <option key={c} value={c}>
+                    {c}
+                  </option>
+                ))}
+              </select>
+            </div>
+            
             <div id="createProductFormFile">
               <input
                 type="file"

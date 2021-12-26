@@ -115,6 +115,7 @@
     padding: 1vmax;
     border: none;
     margin: auto;
+    margin-bottom: 2vmax;
     cursor: pointer;
     transition: 0.5s;
     font: 400 1vmax "Roboto";

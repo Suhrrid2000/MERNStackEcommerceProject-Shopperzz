@@ -1,9 +1,7 @@
 import React from 'react';
 import {Link} from "react-router-dom";
 import { Rating } from "@material-ui/lab";
-
-
-
+import LocalOfferIcon from '@material-ui/icons/LocalOffer';
 
 const ProductCard = ({ product }) => {
 
@@ -25,6 +23,7 @@ const ProductCard = ({ product }) => {
         </span>
       </div>
       <span>{`₹${product.price}`}</span>
+      <p id="Discount"><LocalOfferIcon id="OfferIcon"/>Available at {product.discount}% discount</p>
     </Link>
     );
   };

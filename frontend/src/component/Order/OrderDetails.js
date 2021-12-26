@@ -68,7 +68,7 @@ const OrderDetails = ({ match }) => {
                     {order.paymentInfo &&
                     order.paymentInfo.status === "succeeded"
                       ? "PAID"
-                      : "NOT PAID"}
+                      : "CASH ON DELIVERY"}
                   </p>
                 </div>
 
@@ -105,8 +105,8 @@ const OrderDetails = ({ match }) => {
                         {item.name}
                       </Link>{" "}
                       <span>
-                        {item.quantity} * ₹{item.price} ={" "}
-                        <b>₹{item.price * item.quantity}</b>
+                        {item.quantity} * ₹{(Math.round(item.price-(item.discount*item.price/100)))} ={" "}
+                        <b>₹{(Math.round(item.price-(item.discount*item.price/100))) * item.quantity}</b>
                       </span>
                     </div>
                   ))}

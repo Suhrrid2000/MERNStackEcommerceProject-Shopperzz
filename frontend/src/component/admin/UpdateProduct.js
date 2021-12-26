@@ -9,6 +9,8 @@ import { useAlert } from "react-alert";
 import { Button } from "@material-ui/core";
 import MetaData from "../layout/MetaData";
 import AccountTreeIcon from "@material-ui/icons/AccountTree";
+import LocalOfferIcon from '@material-ui/icons/LocalOffer';
+import PaymentIcon from '@material-ui/icons/Payment';
 import DescriptionIcon from "@material-ui/icons/Description";
 import StorageIcon from "@material-ui/icons/Storage";
 import SpellcheckIcon from "@material-ui/icons/Spellcheck";
@@ -30,6 +32,8 @@ const UpdateProduct = ({ history, match }) => {
 
   const [name, setName] = useState("");
   const [price, setPrice] = useState(0);
+  const [discount, setDiscount] = useState(0);
+  const [cod, setCod] = useState(false);
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
   const [Stock, setStock] = useState(0);
@@ -47,6 +51,11 @@ const UpdateProduct = ({ history, match }) => {
     "SmartPhones",
   ];
 
+  const codChoices = [
+    "YES", 
+    "NO"
+  ]
+
   const productId = match.params.id;
 
   useEffect(() => {
@@ -56,6 +65,8 @@ const UpdateProduct = ({ history, match }) => {
       setName(product.name);
       setDescription(product.description);
       setPrice(product.price);
+      setDiscount(product.discount);
+      setCod(product.cod);
       setCategory(product.category);
       setStock(product.Stock);
       setOldImages(product.images);
@@ -93,6 +104,8 @@ const UpdateProduct = ({ history, match }) => {
 
     myForm.set("name", name);
     myForm.set("price", price);
+    myForm.set("discount", discount);
+    myForm.set("cod", cod);
     myForm.set("description", description);
     myForm.set("category", category);
     myForm.set("Stock", Stock);
@@ -135,7 +148,7 @@ const UpdateProduct = ({ history, match }) => {
             encType="multipart/form-data"
             onSubmit={updateProductSubmitHandler}
           >
-            <h1>Create Product</h1>
+            <h1>Update Product</h1>
 
             <div>
               <SpellcheckIcon />
@@ -155,6 +168,16 @@ const UpdateProduct = ({ history, match }) => {
                 required
                 onChange={(e) => setPrice(e.target.value)}
                 value={price}
+              />
+            </div>
+            <div>
+              <LocalOfferIcon />
+              <input
+                type="number"
+                placeholder="Discount %"
+                required
+                onChange={(e) => setDiscount(e.target.value)}
+                value={discount}
               />
             </div>
 
@@ -195,6 +218,19 @@ const UpdateProduct = ({ history, match }) => {
                 value={Stock}
               />
             </div>
+            <div>
+              <PaymentIcon />
+              <select 
+                value={cod ? "YES" : "NO"}
+                onChange={(e) => setCod(e.target.value === "YES" ? true : false)}>
+                <option value="">Cash on Delivery available</option>
+                {codChoices.map((c) => (
+                  <option key={c} value={c}>
+                    {c}
+                  </option>
+                ))}
+              </select>
+            </div>
 
             <div id="createProductFormFile">
               <input
@@ -224,7 +260,7 @@ const UpdateProduct = ({ history, match }) => {
               type="submit"
               disabled={loading ? true : false}
             >
-              Create
+              Update
             </Button>
           </form>
         </div>

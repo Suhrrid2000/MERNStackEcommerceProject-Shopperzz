@@ -41,6 +41,12 @@ const Home = () => {
                     </button>
                   </a>
               </div>
+
+
+              
+              
+
+
   
               <h2 className="homeHeading">Featured Products</h2>
   

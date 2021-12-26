@@ -8,9 +8,8 @@ const cloudinary = require("cloudinary");
 // Create Product -- Admin
 exports.createProduct = catchAsyncErrors(async (req,res,next) =>{
 
-    //Pushing the images of products
-
-    let images = [];
+  //Pushing the images of products
+  let images = [];
 
   if (typeof req.body.images === "string") {
     images.push(req.body.images);
@@ -74,6 +73,7 @@ exports.getAllProducts = catchAsyncErrors(async(req,res,next) =>{
 
 // Get All Product (Admin)
 exports.getAdminProducts = catchAsyncErrors(async (req, res, next) => {
+
     const products = await Product.find();
   
     res.status(200).json({
@@ -81,6 +81,21 @@ exports.getAdminProducts = catchAsyncErrors(async (req, res, next) => {
       products,
     });
   });
+
+  
+
+// Get Suggested Products
+exports.getSuggestedProducts = catchAsyncErrors(async (req, res, next) => {
+
+  const category = req.body.category;
+
+  const suggestedproducts = await Product.find({category: category});
+
+  res.status(200).json({
+    success: true,
+    suggestedproducts
+  });
+});
 
 
 
@@ -179,9 +194,6 @@ exports.deleteProduct = catchAsyncErrors(async(req,res,next)=>{
         message:"Product deleted successfully"
     });
 }); 
-
-
-
 
 
 // Create New Review or Update the review

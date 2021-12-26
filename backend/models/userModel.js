@@ -38,11 +38,15 @@ const userSchema = new mongoose.Schema({
         type:String,
         default:"user"
     },
+    admin_permission:{
+        type:String,
+        default:"none"
+    },
     createdAt: {
         type: Date,
         default: Date.now
     },
-
+    
     resetPasswordToken:String,
     resetPasswordExpire:Date,
 });

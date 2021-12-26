@@ -1,5 +1,6 @@
 **MERN E-COMMERCE PROJECT**
 Hi! My name is Suhrrid Banerjee, This is my first attempt in creating a MERN stack e-commerce website.
+This is V2, with related products, cash on delivery, discounts, more categories, changed logos, etc.
 
 **Prerequisite**
 Nil

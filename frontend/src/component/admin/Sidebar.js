@@ -12,7 +12,10 @@ import DashboardIcon from "@material-ui/icons/Dashboard";
 import PeopleIcon from "@material-ui/icons/People";
 import RateReviewIcon from "@material-ui/icons/RateReview";
 
+
+
 const Sidebar = () => {
+
   return (
     <div className="sidebar">
       <Link to="/">
@@ -45,11 +48,13 @@ const Sidebar = () => {
           Orders
         </p>
       </Link>
-      <Link to="/admin/users">
+      
+        <Link to="/admin/users">
         <p>
           <PeopleIcon /> Users
         </p>
       </Link>
+      
       <Link to="/admin/reviews">
         <p>
           <RateReviewIcon />

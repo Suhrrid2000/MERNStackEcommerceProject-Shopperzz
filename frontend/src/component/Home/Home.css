@@ -52,7 +52,7 @@
 
   .homeHeading {
     text-align: center;
-    font-family: Roboto Condensed;
+    font-family: "Roboto Condensed";
     font-size: 1.4vmax;
     border-bottom: 1px solid rgba(21, 21, 21, 0.5);
     width: 20vmax;
@@ -68,6 +68,11 @@
     flex-wrap: wrap;
     justify-content: center;
     max-width: 100%;
+  }
+
+  #OfferIcon {
+    margin-right: 0.5vmax;
+    color: rgb(38, 168, 38);
   }
   
   .productCard {
@@ -110,6 +115,15 @@
     font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
     font-size: 1vmax;
   }
+
+  #Discount {
+    margin: 0.5vmax;
+    color: rgb(221, 107, 86);
+    font-family: "Roboto Condensed";
+    font-size: 1vmax;
+  }
+
+  
   
   .productCard:hover {
     box-shadow: 0 0 5px rgba(15, 15, 15, 0.26);

@@ -37,6 +37,11 @@ const orderSchema = new mongoose.Schema({
                 type: Number,
                 required: true
             },
+            discount:{
+                type:Number,
+                maxLength:[2,"Discount cannot exceed 2 characters"],
+                required: true
+            },
             quantity: {
                 type: Number,
                 required: true

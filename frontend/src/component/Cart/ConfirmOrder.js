@@ -1,27 +1,55 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import CheckoutSteps from "../Cart/CheckoutSteps";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import MetaData from "../layout/MetaData";
 import "./ConfirmOrder.css";
 import { Link } from "react-router-dom";
 import { Typography } from "@material-ui/core";
+import axios from "axios";
+import { createOrder } from "../../actions/orderAction";
 
 const ConfirmOrder = ({ history }) => {
   const { shippingInfo, cartItems } = useSelector((state) => state.cart);
   const { user } = useSelector((state) => state.user);
 
+  const dispatch = useDispatch();
+
   const subtotal = cartItems.reduce(
-    (acc, item) => acc + item.quantity * item.price,
+    (acc, item) => acc + item.quantity * (Math.round(item.price-(item.discount*item.price/100))),
     0
   );
 
   const shippingCharges = subtotal > 1000 ? 0 : 200;
 
-  const tax = subtotal * 0.18;
+  const tax = subtotal * 0.06;
 
-  const totalPrice = subtotal + tax + shippingCharges;
+  const totalPrice = Math.round(subtotal + tax + shippingCharges);
 
   const address = `${shippingInfo.address}, ${shippingInfo.city}, ${shippingInfo.state}, ${shippingInfo.pinCode}, ${shippingInfo.country}`;
+
+  //Checking if cash on delivery is available for all the cart items
+  const [flag, setFlag] = useState(true);
+  
+   async function cashOnDeliveryAvailableForAll() {
+      for(var i = 0; i<cartItems.length; i++){
+        const id = cartItems[i].product;
+
+        await axios.get(`/api/v1/product/${id}`)
+        .then (function(response){
+          if(!response.data.product.cod) {
+            setFlag(false);
+          }
+        })
+        .catch (function(error) {
+          console.log(error);  
+        })
+      }
+  }
+
+  useEffect(() => {
+    cashOnDeliveryAvailableForAll();
+  },[]);
+
 
   const proceedToPayment = () => {
     const data = {
@@ -35,6 +63,38 @@ const ConfirmOrder = ({ history }) => {
 
     history.push("/process/payment");
   };
+
+  const proceedToPaymentViaCash = () => {
+    const data = {
+      subtotal,
+      shippingCharges,
+      tax,
+      totalPrice,
+    };
+
+    sessionStorage.setItem("orderInfo", JSON.stringify(data));
+
+    const orderInfo = JSON.parse(sessionStorage.getItem("orderInfo"));
+
+    //Creating new order
+    const order = {
+      shippingInfo,
+      orderItems: cartItems,
+      itemsPrice: orderInfo.subtotal,
+      taxPrice: orderInfo.tax,
+      shippingPrice: orderInfo.shippingCharges,
+      totalPrice: orderInfo.totalPrice,
+    }; 
+
+    order.paymentInfo = {
+      id: "Cash On Delivery",
+      status: "pending"
+    };
+
+    dispatch(createOrder(order));
+
+    history.push("/success");
+  }
 
   return (
     <Fragment>
@@ -70,8 +130,8 @@ const ConfirmOrder = ({ history }) => {
                       {item.name}
                     </Link>{" "}
                     <span>
-                      {item.quantity} * ₹{item.price} ={" "}
-                      <b>₹{item.price * item.quantity}</b>
+                      {item.quantity} * ₹{(Math.round(item.price-(item.discount*item.price/100)))} ={" "}
+                      <b>₹{(Math.round(item.price-(item.discount*item.price/100))) * item.quantity}</b>
                     </span>
                   </div>
                 ))}
@@ -103,8 +163,8 @@ const ConfirmOrder = ({ history }) => {
               </p>
               <span>₹{totalPrice}</span>
             </div>
-
-            <button onClick={proceedToPayment}>Proceed To Payment</button>
+            <button onClick={proceedToPayment}>Pay via Card</button>
+            {flag && <button onClick={proceedToPaymentViaCash}>Cash On Delivery</button>}
           </div>
         </div>
       </div>

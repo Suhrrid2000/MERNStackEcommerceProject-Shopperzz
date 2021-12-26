@@ -1,10 +1,12 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState, useEffect } from "react";
+import axios from "axios";
 import "./Cart.css";
 import CartItemCard from "./CartItemCard.js";
 import { useSelector, useDispatch } from "react-redux";
 import { addItemsToCart, removeItemsFromCart } from "../../actions/cartAction";
 import { Typography } from "@material-ui/core";
 import RemoveShoppingCartIcon from "@material-ui/icons/RemoveShoppingCart";
+import PriorityHighIcon from '@material-ui/icons/PriorityHigh';
 import { Link } from "react-router-dom";
 
 const Cart = ({ history }) => {
@@ -34,6 +36,29 @@ const Cart = ({ history }) => {
   const checkoutHandler = () => {
     history.push("/login?redirect=shipping");
   };
+
+  //Checking if cash on delivery is available for all the cart items
+  const [flag, setFlag] = useState(true);
+
+  async function cashOnDeliveryAvailableForAll() {
+    for(var i = 0; i<cartItems.length; i++){
+      const id = cartItems[i].product;
+
+      await axios.get(`/api/v1/product/${id}`)
+      .then (function(response){
+        if(!response.data.product.cod) {
+          setFlag(false);
+        }
+      })
+      .catch (function(error) {
+        console.log(error);  
+      })
+    }
+}
+
+  useEffect(() => {
+    cashOnDeliveryAvailableForAll();
+  },[]);
 
   return (
     <Fragment>
@@ -79,7 +104,7 @@ const Cart = ({ history }) => {
                     </button>
                   </div>
                   <p className="cartSubtotal">{`₹${
-                    item.price * item.quantity
+                    (Math.round(item.price-(item.discount*item.price/100))) * item.quantity
                   }`}</p>
                 </div>
               ))}
@@ -89,14 +114,26 @@ const Cart = ({ history }) => {
               <div className="cartGrossProfitBox">
                 <p>Gross Total</p>
                 <p>{`₹${cartItems.reduce(
-                  (acc, item) => acc + item.quantity * item.price,
+                  (acc, item) => acc + item.quantity * (Math.round(item.price-(item.discount*item.price/100))),
                   0
                 )}`}</p>
               </div>
               <div></div>
               <div className="checkOutBtn">
-                <button onClick={checkoutHandler}>Check Out</button>
-              </div>
+                <button onClick={checkoutHandler}>Place Order</button> 
+                </div>
+                <br /> <br />
+                <div id="noteSection">
+                {!flag && cartItems.length > 1 &&
+                  <p>
+                    <PriorityHighIcon />Your cart contains product(s) for which <b>Cash On Delivery is not available</b>.
+                    As a result you cannot avail Cash on delivery on the entire transaction. To avail cash on delivery,
+                    please ensure you have only those products in your cart for which cash on delivery is available.
+                    You can still go for checkout, in which case you have to pay via card.
+                  </p>}
+                </div>
+              
+              
             </div>
           </div>
         </Fragment>

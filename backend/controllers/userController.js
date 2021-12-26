@@ -20,12 +20,28 @@ exports.registerUser = catchAsyncErrors(async(req,res,next)=>{
     const {name,email,password} = req.body;
 
     const user = await User.create({
-        name,email,password,
+        name,
+        email,
+        password,
         avatar:{
             public_id: myCloud.public_id,
             url: myCloud.secure_url,
         }
     });
+
+    //Sending welcome mail to users
+    const message = `Hi ${name}, \n\nGreetings of the day. Hope you're doing good during this pandemic. Welcome to the Shopperzz family.\n\nEnjoy shopping with us and fulfill your day to day shopping needs with assured delivery within 7 days and exciting discounts & cashbacks.\n\nThanks & regards,\nShopperzz team`;
+
+    try {
+        await sendEmail({
+            email: email,
+            subject: `Welcome to Shopperzz`,
+            message,
+        });
+    }
+    catch(error) {
+        return next(new ErrorHandler(error.message, 500));
+    }
 
     sendToken(user,201,res);
 });

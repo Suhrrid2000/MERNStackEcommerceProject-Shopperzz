@@ -56,10 +56,30 @@
   }
   
   .detailsBlock-3 > h1 {
-    color: rgba(17, 17, 17, 0.795);
+    color: rgba(66, 64, 64, 0.795);
     font: 400 1.8vmax "Franklin Gothic Medium";
+    text-decoration: line-through !important;
     margin: 1vmax 0;
   }
+
+  .cashOnDelivery {
+    text-decoration: none;
+    font: 400 1.5vmax "Roboto Condensed";
+    color: rgba(23, 161, 69, 0.795);
+  }
+
+  .cashOnDeliveryNotAvailable {
+    text-decoration: line-through;
+    font: 400 1.5vmax "Roboto Condensed";
+    color: rgba(224, 14, 14, 0.795);
+  }
+
+  #discountedPrice {
+    color: rgba(224, 14, 14, 0.795);
+    font: 400 1.5vmax "Franklin Gothic Medium";
+    margin: 1vmax 0;
+  }
+
   .detailsBlock-3-1 {
     display: flex;
     align-items: center;
@@ -160,7 +180,7 @@
     padding: 1vmax;
     width: 20vmax;
     margin: auto;
-    margin-bottom: 4vmax;
+    margin-bottom: 3vmax;
   }
   .reviews {
     display: flex;
@@ -196,7 +216,33 @@
     text-align: center;
     color: rgba(0, 0, 0, 0.548);
   }
-  
+
+  #OfferIcon {
+    margin-right: 0.5vmax;
+    color: rgb(38, 168, 38);
+  }
+
+  .suggestedProductImages {
+    width: 80%;
+    display: flex;
+    overflow: auto;
+    scrollbar-width: 0;
+    margin: auto;
+  }
+
+  .suggestedProductImages::-webkit-scrollbar {
+    width: 0;
+  }
+
+  .suggestedProducts {
+    text-align: center;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.226);
+    padding: 1vmax;
+    width: 90%;
+    margin: auto;
+    margin-bottom: 4vmax;
+  }
+
   @media screen and (max-width: 600px) {
     .ProductDetails {
       flex-direction: column;
