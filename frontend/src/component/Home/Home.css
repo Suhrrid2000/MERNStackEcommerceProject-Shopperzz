@@ -1,5 +1,5 @@
 .banner {
-    background-image: url("../../images/cover.jfif");
+    background-image: url("../../images/cover.png");
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -46,7 +46,7 @@
     position: absolute;
     top: 0%;
     left: 0;
-    clip-path: polygon(100% 62%, 0 100%, 100% 100%);
+    clip-path: polygon(100% 72%, 0 100%, 100% 100%);
     max-width: 100%;
   }
 
@@ -148,5 +148,13 @@
     .productCard > div > span {
       margin: 0 0.5vmax;
       font: 300 1vmax "Roboto Condensed";
+    }
+
+    #OfferIcon {
+      margin-right: 0.2vmax;
+      margin: 0;
+      padding: 0;
+      color: rgb(38, 168, 38);
+      font-size: 80%;
     }
   }

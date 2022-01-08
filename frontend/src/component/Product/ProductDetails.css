@@ -305,6 +305,12 @@
       text-align: center;
       font: 400 2vmax "Roboto Condensed";
     }
+
+    .detailsBlock-3 {
+      padding: 2.5vmax 0;
+      text-align: center;
+      font: 400 2vmax "Roboto Condensed";
+    }
   
     .detailsBlock-4 {
       font: 500 2.5vmax sans-serif;
@@ -326,5 +332,25 @@
     }
     .reviewCardComment {
       font: 300 5vw cursive;
+    }
+
+    #OfferIcon {
+      margin-right: 0.5vmax;
+      color: rgb(38, 168, 38);
+      font-size: 80%;
+    }
+
+    .cashOnDelivery {
+      text-decoration: none;
+      font: 400 1.5vmax "Roboto Condensed";
+      color: rgba(23, 161, 69, 0.795);
+      margin: auto;
+    }
+  
+    .cashOnDeliveryNotAvailable {
+      text-decoration: line-through;
+      font: 400 1.5vmax "Roboto Condensed";
+      color: rgba(224, 14, 14, 0.795);
+      margin: auto;
     }
   }
