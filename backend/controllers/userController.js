@@ -30,7 +30,7 @@ exports.registerUser = catchAsyncErrors(async(req,res,next)=>{
     });
 
     //Sending welcome mail to users
-    const message = `Hi ${name}, \n\nGreetings of the day. Hope you're doing good during this pandemic. Welcome to the Shopperzz family.\n\nEnjoy shopping with us and fulfill your day to day shopping needs with assured delivery within 7 days and exciting discounts & cashbacks.\n\nThanks & regards,\nShopperzz team`;
+    const message = `Hi ${name}, \n\nGreetings of the day. Hope you're doing good during this pandemic. Welcome to the Shopperzz family & thankyou for choosing us as your shopping partner.\n\nEnjoy shopping with us and fulfill your day to day shopping needs with assured delivery within 7 days and exciting discounts & cashbacks.\n\nThanks & regards,\nShopperzz team`;
 
     try {
         await sendEmail({

@@ -1,5 +1,6 @@
 .banner {
     background-image: url("../../images/cover.png");
+    animation: animate 20s ease-in-out infinite;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -10,6 +11,24 @@
     align-items: center;
     justify-content: center;
     color: white;
+  }
+
+  @keyframes animate {
+    0%, 100%{
+      background-image: url("../../images/cover.jfif");
+    }
+    25% {
+      background-image: url("../../images/cover.png");
+    }
+    50% {
+      background-image: url("../../images/cover2.png");
+    }
+    75% {
+      background-image: url("../../images/cover3.png");
+    }
+    100% {
+      background-image: url("../../images/cover4.png");
+    }
   }
   
   .banner > h1 {
@@ -68,6 +87,21 @@
     flex-wrap: wrap;
     justify-content: center;
     max-width: 100%;
+  }
+
+  .stories {
+    display: flex;
+    text-align: center;
+    justify-content: flex-start;
+    margin: auto;
+    padding: 0;
+    width: 80%;
+    overflow-x: scroll;
+    scrollbar-width: thin;
+  }
+
+  .stories::-webkit-scrollbar {
+    width: 0;
   }
 
   #OfferIcon {

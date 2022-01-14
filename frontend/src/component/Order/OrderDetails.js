@@ -7,12 +7,26 @@ import { Typography } from "@material-ui/core";
 import { getOrderDetails, clearErrors } from "../../actions/orderAction";
 import Loader from "../layout/Loader/Loader";
 import { useAlert } from "react-alert";
+import { deleteOrder } from "../../actions/orderAction";
 
-const OrderDetails = ({ match }) => {
+const OrderDetails = ({ match, history }) => {
   const { order, error, loading } = useSelector((state) => state.orderDetails);
+  const { isDeleted } = useSelector((state) => state.order);
 
   const dispatch = useDispatch();
   const alert = useAlert();
+
+  const cancelOrder = () => {
+    const id = order._id;
+    console.log(id);
+    dispatch(deleteOrder(id));
+    if (isDeleted) {
+      alert.success("Order Cancelled Successfully");
+      if(order.paymentInfo.status!=="pending")
+        alert.success("Money will be refunded to your account within 48 hours");
+      history.push("/orders");
+    }
+  };
 
   useEffect(() => {
     if (error) {
@@ -89,8 +103,11 @@ const OrderDetails = ({ match }) => {
                     }
                   >
                     {order.orderStatus && order.orderStatus}
+                    
                   </p>
+                  
                 </div>
+                {order.orderStatus === "Processing" && <button onClick={cancelOrder} className="cancelButton">Cancel Order</button>}
               </div>
             </div>
 

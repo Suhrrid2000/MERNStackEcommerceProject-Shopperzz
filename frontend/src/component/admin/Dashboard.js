@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { Doughnut, Line } from "react-chartjs-2";
 import { useSelector, useDispatch } from "react-redux";
 import { getAdminProduct } from "../../actions/productAction";
+import { getStory } from "../../actions/storyAction";
 import { getAllOrders } from "../../actions/orderAction.js";
 import { getAllUsers } from "../../actions/userAction.js";
 import MetaData from "../layout/MetaData";
@@ -18,6 +19,8 @@ const Dashboard = () => {
   const { orders } = useSelector((state) => state.allOrders);
 
   const { users } = useSelector((state) => state.allUsers);
+
+  const { stories } = useSelector((state) => state.stories);
 
   let outOfStock = 0;
 
@@ -32,6 +35,7 @@ const Dashboard = () => {
     dispatch(getAdminProduct());
     dispatch(getAllOrders());
     dispatch(getAllUsers());
+    dispatch(getStory());
   }, [dispatch]);
 
   let totalAmount = 0;
@@ -89,6 +93,10 @@ const Dashboard = () => {
             <Link to="/admin/users">
               <p>Users</p>
               <p>{users && users.length}</p>
+            </Link>
+            <Link to="/admin/stories">
+              <p>Stories</p>
+              <p>{stories && stories.length}</p>
             </Link>
           </div>
         </div>

@@ -58,7 +58,7 @@ const Cart = ({ history }) => {
 
   useEffect(() => {
     cashOnDeliveryAvailableForAll();
-  },[]);
+  });
 
   return (
     <Fragment>

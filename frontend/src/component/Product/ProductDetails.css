@@ -57,7 +57,7 @@
   
   .detailsBlock-3 > h1 {
     color: rgba(66, 64, 64, 0.795);
-    font: 400 1.8vmax "Franklin Gothic Medium";
+    font: 400 1.8vmax "Roboto Condensed";
     text-decoration: line-through !important;
     margin: 1vmax 0;
   }
@@ -76,7 +76,7 @@
 
   #discountedPrice {
     color: rgba(224, 14, 14, 0.795);
-    font: 400 1.5vmax "Franklin Gothic Medium";
+    font: 400 1.5vmax "Roboto Condensed";
     margin: 1vmax 0;
   }
 

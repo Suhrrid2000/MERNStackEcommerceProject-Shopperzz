@@ -97,6 +97,34 @@ exports.getSuggestedProducts = catchAsyncErrors(async (req, res, next) => {
   });
 });
 
+// Get Featured Products
+exports.getFeaturedProducts = catchAsyncErrors(async (req, res, next) => {
+
+  const products1 = await Product.find({category: "Laptop"});
+  const products2 = await Product.find({category: "Camera"});
+  const products3 = await Product.find({category: "SmartPhones"});
+  const products4 = await Product.find({category: "Tops"});
+  const products5 = await Product.find({category: "Attire"});
+  const products6 = await Product.find({category: "Footwear"});
+  const products7 = await Product.find({category: "Furniture"});
+  const products8 = await Product.find({category: "Others"});
+
+  const result = [];
+  result[0] = products1[Math.floor(Math.random()*products1.length)];
+  result[1] = products2[Math.floor(Math.random()*products2.length)];
+  result[2] = products3[Math.floor(Math.random()*products3.length)];
+  result[3] = products4[Math.floor(Math.random()*products4.length)];
+  result[4] = products5[Math.floor(Math.random()*products5.length)];
+  result[5] = products6[Math.floor(Math.random()*products6.length)];
+  result[6] = products7[Math.floor(Math.random()*products7.length)];
+  result[7] = products8[Math.floor(Math.random()*products8.length)];
+
+  res.status(200).json({
+    success: true,
+    result
+  });
+});
+
 
 
 

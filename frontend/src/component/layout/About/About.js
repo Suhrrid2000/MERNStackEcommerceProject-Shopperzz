@@ -12,13 +12,13 @@ const About = () => {
       <div></div>
       <div className="aboutSectionGradient"></div>
       <div className="aboutSectionContainer">
-        <Typography component="h1">About Us</Typography>
+        <Typography component="h1">About Me</Typography>
 
         <div>
           <div>
             <Avatar
               style={{ width: "10vmax", height: "10vmax", margin: "2vmax 0" }}
-              src="https://res.cloudinary.com/myapplication/image/upload/v1639720782/avatars/ufdmt09fj1d7zbl4ccyy.jpg"
+              src="https://res.cloudinary.com/myapplication/image/upload/v1639980732/avatars/zqalqzjy5stthsq8zv3m.jpg"
               alt="Founder"
             />
             <Typography>Suhrrid Banerjee</Typography>
@@ -32,7 +32,7 @@ const About = () => {
             </span>
           </div>
           <div className="aboutSectionContainer2">
-            <Typography component="h2">Connect with us</Typography>
+            <Typography component="h2">Connect with me</Typography>
             <a
               href="https://www.linkedin.com/in/suhrrid-banerjee-a2b67b198/"
               target="blank"

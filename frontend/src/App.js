@@ -7,7 +7,6 @@ import React from "react";
 import Footer from "./component/layout/Footer/footer.js";
 import Home from "./component/Home/Home.js";
 import ProductDetails from "./component/Product/ProductDetails.js";
-import ProductDeals from "./component/Product/ProductDeals.js";
 import Products from "./component/Product/Products.js";
 import Search from "./component/Product/Search.js";
 import LoginSignUp from './component/User/LoginSignUp';
@@ -33,6 +32,7 @@ import MyOrders from "./component/Order/MyOrders.js";
 import OrderDetails from "./component/Order/OrderDetails.js";
 import Dashboard from "./component/admin/Dashboard.js";
 import ProductList from "./component/admin/ProductList.js";
+import StoryList from "./component/admin/StoryList.js";
 import NewProduct from './component/admin/NewProduct';
 import UpdateProduct from './component/admin/UpdateProduct.js';
 import OrderList from './component/admin/OrderList.js';
@@ -42,7 +42,8 @@ import UpdateUser from './component/admin/UpdateUser.js';
 import ProductReviews from './component/admin/ProductReviews.js';
 import About from './component/layout/About/About.js';
 import Contact from './component/layout/Contact/Contact.js';
-import NotFound from "./component/layout/Not Found/NotFound.js";
+import NewStory from './component/admin/NewStory.js';
+import StoryDetails from './component/Story/StoryDetails';
 
 
 function App() {
@@ -85,8 +86,8 @@ function App() {
         <Route exact path="/" component={Home} />
         <Route exact path="/product/:id" component={ProductDetails} />
         <Route exact path="/products" component={Products} />
-        <Route exact path="/today's deals" component={ProductDeals} />
         <Route path="/products/:keyword" component={Products} />
+        <Route exact path="/story/:id" component={StoryDetails} />
 
         <Route exact path="/search" component={Search} />
 
@@ -136,6 +137,12 @@ function App() {
         />
         <ProtectedRoute
           exact
+          path="/admin/stories"
+          isAdmin={true}
+          component={StoryList}
+        />
+        <ProtectedRoute
+          exact
           path="/admin/product"
           isAdmin={true}
           component={NewProduct}
@@ -147,6 +154,7 @@ function App() {
           isAdmin={true}
           component={UpdateProduct}
         />
+
         <ProtectedRoute
           exact
           path="/admin/orders"
@@ -176,16 +184,18 @@ function App() {
 
         <ProtectedRoute
           exact
+          path="/admin/story"
+          isAdmin={true}
+          component={NewStory}
+        />
+
+        <ProtectedRoute
+          exact
           path="/admin/reviews"
           isAdmin={true}
           component={ProductReviews}
         />
 
-        <Route
-          component={
-            window.location.pathname === "/process/payment" ? null : NotFound
-          }
-        />
       </Switch>
 
       <Footer />

@@ -1,19 +1,37 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { CgMouse } from "react-icons/all";
 import "./Home.css";
 import ProductCard from "./ProductCard.js";
+import StoryCard from "./StoryCard";
 import MetaData from "../layout/MetaData";
 import { clearErrors, getProduct } from "../../actions/productAction";
+import { getStory } from "../../actions/storyAction";
 import { useSelector, useDispatch } from "react-redux";
 import Loader from "../layout/Loader/Loader";
 import { useAlert } from "react-alert";
+import axios from "axios";
 
 const Home = () => {
 
   const alert=useAlert();
 
   const dispatch = useDispatch();
-  const { loading, error, products } = useSelector(state=>state.products)
+  const { loading, error, products } = useSelector(state=>state.products);
+  const { stories } = useSelector(state=>state.stories);
+
+  const [featuredProducts, setFeaturedProducts] = useState([]);
+
+
+  const getFeaturedProducts = () => {
+    axios.get("/api/v1/products/featured")
+    .then((response) => {
+      const products = response.data.result;
+      console.log(products);
+      setFeaturedProducts(products);
+    })
+    .catch((error) => {console.log(error)})
+  };
+  
 
   useEffect(() => {
 
@@ -21,7 +39,10 @@ const Home = () => {
       alert.error(error);
       dispatch(clearErrors());
     }
+    getFeaturedProducts();
     dispatch(getProduct());
+    dispatch(getStory());
+    window.scrollTo(0, 0);
   }, [dispatch, error, alert]);
 
     return (
@@ -41,13 +62,17 @@ const Home = () => {
                     </button>
                   </a>
               </div>
-
-
-              
-              
-
-
   
+              <h2 className="homeHeading">Stories from Top Brands</h2>
+
+              <div className="stories">
+                
+                {stories && stories.map(story => (
+                  <StoryCard story={story} />
+                ))}
+
+              </div>
+
               <h2 className="homeHeading">Featured Products</h2>
   
               <div className="container" id="container">

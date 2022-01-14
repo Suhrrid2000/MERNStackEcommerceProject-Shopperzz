@@ -68,8 +68,30 @@
     font: 100 1vmax "Roboto";
     color: #5e5e5e;
   }
+
+  .cancelButton {
+    background-color: tomato;
+    color: white;
+    width: 10%;
+    padding: 0.6vmax;
+    border: none;
+    margin: auto;
+    margin-top: 0.5vmax;
+    cursor: pointer;
+    transition: 0.5s;
+    font: 400 0.95vmax "Roboto Condensed";
+  }
+
+  .cancelButton:hover {
+    background-color: rgb(192, 71, 50);
+  }
   
   @media screen and (max-width: 600px) {
+    .cancelButton {
+      width: 40%;
+      font-size: 1vmax;
+    }
+
     .orderDetailsContainer > p {
       font: 400 6vw "Roboto";
     }

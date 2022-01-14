@@ -48,7 +48,7 @@ const ConfirmOrder = ({ history }) => {
 
   useEffect(() => {
     cashOnDeliveryAvailableForAll();
-  },[]);
+  });
 
 
   const proceedToPayment = () => {
