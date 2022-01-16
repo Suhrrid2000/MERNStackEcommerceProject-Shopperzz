@@ -47,7 +47,31 @@ exports.createStory = catchAsyncErrors(async (req,res,next) =>{
 // Get all stories
 exports.getAllStories = catchAsyncErrors(async(req,res,next) =>{
 
-    const stories = await Story.find().sort({"createdAt": -1});
+    var stories = await Story.find().sort({"createdAt": -1});
+
+    //Deleting stories which are 2 days old
+    const currDate = Date.now();
+
+    for(var i=0; i<stories.length; i++){
+      const storyDate = stories[i].createdAt;
+      const millis = currDate - storyDate;
+      const sec = Math.floor(millis / 1000);
+      const hrs = Math.floor(sec/3600);
+      if(hrs >= 48){
+        const story = await Story.findById(stories[i]._id);
+        if(!story){
+          return next(new ErrorHandler("Story not found",404));
+        }
+
+    // Deleting Images From Cloudinary
+    for (let j = 0; j < story.images.length; j++) {
+      await cloudinary.v2.uploader.destroy(story.images[j].public_id);
+    }
+    await story.remove();
+      }
+    }
+
+    stories = await Story.find().sort({"createdAt": -1});
   
     res.status(200).json({
       success: true,

@@ -66,17 +66,19 @@ import {
     try {
       dispatch({ type: REGISTER_USER_REQUEST });
   
-      const config = { headers: { "Content-Type": "multipart/form-data" } };
+      const config = { headers: { "Content-Type": "application/x-www-form-urlencoded" } };
   
       const { data } = await axios.post(`/api/v1/register`, userData, config);
       console.log(data);
   
       dispatch({ type: REGISTER_USER_SUCCESS, payload: data.user });
     } catch (error) {
-      dispatch({
-        type: REGISTER_USER_FAIL,
-        payload: error.response.data.message,
-      });
+      console.log(error.response.data.message);
+        dispatch({
+          type: REGISTER_USER_FAIL,
+          payload: error.response.data.message,
+        });
+     
     }
   };
   

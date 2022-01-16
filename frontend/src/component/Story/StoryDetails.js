@@ -11,6 +11,8 @@ const StoryDetails = ({match}) => {
 
   const [image, setImage] = useState([]);
 
+  const [description, setDescription] = useState("");
+
 
   const getStoryDetail = async (id) => {
     await axios.get(`/api/v1/story/${id}`)
@@ -18,6 +20,7 @@ const StoryDetails = ({match}) => {
       const story = response.data.story;
       setStoryName(story.name);
       setImage(story.images);
+      setDescription(story.description);
     })
     .catch((error) => {console.log(error)})
   };
@@ -48,7 +51,7 @@ const StoryDetails = ({match}) => {
           </Carousel>
           
         </div>
-        
+        <p className="storyDesc">{description}</p>
           
       </div>
     </div>
