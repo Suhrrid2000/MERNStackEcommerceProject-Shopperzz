@@ -19,6 +19,8 @@ const UsersList = ({ history }) => {
 
   const { error, users } = useSelector((state) => state.allUsers);
 
+  const { user } = useSelector((state) => state.user);
+
   const {
     error: deleteError,
     isDeleted,
@@ -78,7 +80,7 @@ const UsersList = ({ history }) => {
       },
     },
 
-    {
+    { 
       field: "actions",
       flex: 0.3,
       headerName: "Actions",
@@ -88,17 +90,17 @@ const UsersList = ({ history }) => {
       renderCell: (params) => {
         return (
           <Fragment>
-            <Link to={`/admin/user/${params.getValue(params.id, "id")}`}>
+            {user.admin_permission !== "none" && <Link to={`/admin/user/${params.getValue(params.id, "id")}`}>
               <EditIcon />
-            </Link>
+            </Link>}
 
-            <Button
+            {user.admin_permission !== "none" && <Button
               onClick={() =>
                 deleteUserHandler(params.getValue(params.id, "id"))
               }
             >
               <DeleteIcon />
-            </Button>
+            </Button>}
           </Fragment>
         );
       },

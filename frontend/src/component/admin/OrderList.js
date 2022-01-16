@@ -25,6 +25,8 @@ const OrderList = ({ history }) => {
 
   const { error: deleteError, isDeleted } = useSelector((state) => state.order);
 
+  const { user } = useSelector((state) => state.user);
+
   const deleteOrderHandler = (id) => {
     dispatch(deleteOrder(id));
   };
@@ -93,13 +95,13 @@ const OrderList = ({ history }) => {
               <EditIcon />
             </Link>
 
-            <Button
+            {user.admin_permission !== "none" && <Button
               onClick={() =>
                 deleteOrderHandler(params.getValue(params.id, "id"))
               }
             >
               <DeleteIcon />
-            </Button>
+            </Button>}
           </Fragment>
         );
       },
